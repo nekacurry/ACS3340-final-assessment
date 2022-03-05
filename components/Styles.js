@@ -1,11 +1,24 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList } from 'react-native';
+import StyleCell from './StyleCell';
+import data from "../metal.json"
+import { SafeAreaView } from 'react-native';
 
 function Styles() {
+  const styles = Array.from(
+    data.reduce((acc, band) => {
+      band.style.split(",").forEach(style => acc.add(style))
+      return acc
+    }, new Set())
+  )
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Styles</Text>
-    </View>
+    <SafeAreaView>
+      <FlatList 
+        data={styles}
+        renderItem={({item}) => <StyleCell name={item}/>}
+        keyExtractor={(item) => item}
+      />
+    </SafeAreaView>
   );
 }
 

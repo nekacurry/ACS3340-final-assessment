@@ -27,6 +27,11 @@ const getTotalSplit = (data) => {
 
 function Stats() {
 
+  const bandStyles = data.reduce((acc, band) => {
+    band.style.split(",").forEach(style => acc.add(style))
+    return acc
+  }, new Set())
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>🤘METAL🤘</Text>
@@ -35,6 +40,7 @@ function Stats() {
       <Text style={styles.txt}>Countries: {getTotalOrigins(data)}</Text>
       <Text style={styles.txt}>Active: {getTotalActive(data)}</Text>
       <Text style={styles.txt}>Split: {getTotalSplit(data)}</Text>
+      <Text style={styles.txt}>Styles: {bandStyles.size}</Text>
     </View>
   );
 }
